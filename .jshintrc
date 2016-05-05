@@ -1,0 +1,15 @@
+{
+    "trailing": true,
+    "noempty": true,
+    "noarg": true,
+    "eqeqeq": true,
+    "indent": 4,
+    "jquery": true,
+    "immed": true,
+    "browser": true,
+    "bitwise": true,
+    "plusplus": true,
+    "curly": true,
+    "nonew": true,
+    "forin": true
+}

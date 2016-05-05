@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>더보기 MVC 패턴 예제</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+</head>
+<body>
+
+<div class="wraper story">
+    <header id="gnb" class="header service_header">
+        <h1 class="logo"><a href="#">더보기 MVC 패턴 예제</a></h1>
+    </header>
+    <section id="ct" class="jr_ct"></section>
+    <div class="cu_pg cu_pg_w"></div>
+</div>
+
+<script src="static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="static/hunyong.song-1.0.0.js"></script>
+<script>
+    var model = new nts.model();
+    var view = new nts.view();
+    var controller = new nts.controller(model, view);
+</script>
+</body>
+</html>

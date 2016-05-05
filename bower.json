@@ -1,0 +1,21 @@
+{
+  "name": "hunyong.song",
+  "description": "day10 homework",
+  "main": "index.html",
+  "authors": [
+    "hunyong-song <hunyong.song@nhn.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3"
+  }
+}
