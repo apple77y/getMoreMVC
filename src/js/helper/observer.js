@@ -3,22 +3,14 @@
  * @returns {*}
  * @constructor
  */
-nts.observer = function () {
-    var me = this;
-
-    if (!(me instanceof nts.observer)) {
-        return new nts.observer();
-    }
-
-    me._eventHandler = $(this);
-
-    return me;
+nts.helper.Observer = function () {
+    this._eventHandler = $(this);
 };
 
 /**
  * observer 객체의 프로토타입 정의
  */
-nts.observer.prototype = {
+nts.helper.Observer.prototype = {
 
     /**
      * 이벤트 핸들러에 커스텀 이벤트를 저장

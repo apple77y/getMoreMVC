@@ -3,34 +3,20 @@
  * @returns {*}
  * @constructor
  */
-nts.view = function () {
-    var me = this;
+nts.view.AutoScrollView = function () {
+    this._cnt = 15;
+    this._length = this._cnt;
+    this._observer = new nts.helper.Observer();
 
-    if (!(me instanceof nts.view)) {
-        return new nts.view();
-    }
-
-    me._length = 15;
-    me._observer = new nts.observer();
-    me._init();
-
-    return me;
+    this._insertTemplate();
+    this._cacheElements();
 };
 
 
 /**
  * 뷰 객체의 프로토타입 정의
  */
-nts.view.prototype = {
-
-    /**
-     * 뷰 최초 실행 함수
-     * @private
-     */
-    _init: function () {
-        this._insertTemplate();
-        this._cacheElements();
-    },
+nts.view.AutoScrollView.prototype = {
 
     /**
      * 뷰 최초 실행함수
@@ -38,9 +24,9 @@ nts.view.prototype = {
      * @private
      */
     _insertTemplate: function () {
-        this._listTemplate = nts.template.list;
-        this._bottomTemplate = nts.template.bottom;
-        this._bottomEndTemplate = nts.template.bottomEnd;
+        this._listTemplate = _.template($('#autoScrollList').html());
+        this._bottomTemplate = _.template($('#autoScrollBottom').html());
+        this._bottomEndTemplate = _.template($('#autoScrollFinish').html());
     },
 
     /**
@@ -62,21 +48,25 @@ nts.view.prototype = {
         var frag = document.createDocumentFragment(),
             template, i, dataObj, length = this._length;
 
-        for (i = length - 15; i < length; i += 1) {
+        for (i = length - this._cnt; i < length; i += 1) {
             /**
              * @typedef {Object} dataObj
              * @property {string} thumb
              * @property {string} playTime
              * @property {string} category
              * @property {string} title
+             * @property {number} badge
              */
             dataObj = data[i];
 
-            template = this._listTemplate
-                .replace(/\{\{thumb\}\}/g, dataObj.thumb)
-                .replace(/\{\{playTime\}\}/g, dataObj.playTime)
-                .replace(/\{\{category\}\}/g, dataObj.category)
-                .replace(/\{\{title\}\}/g, dataObj.title);
+            // 한 번에 처리하는 방법
+            template = this._listTemplate({
+                thumb: dataObj.thumb,
+                playTime: dataObj.playTime,
+                category: dataObj.category,
+                title: dataObj.title,
+                badge: dataObj.badge
+            });
 
             frag.appendChild($(template)[0]);
         }
@@ -107,7 +97,7 @@ nts.view.prototype = {
      */
     _afterRender: function () {
         $('.u_pg_lodic').removeClass().addClass('ico_view');
-        this._length += 15;
+        this._length += this._cnt;
     },
 
     /**
@@ -138,31 +128,38 @@ nts.view.prototype = {
     _bottomRender: function (data) {
         var template;
 
-        template = this._bottomTemplate
-            .replace(/\{\{current\}\}/g, this._length.toString())
-            .replace(/\{\{total\}\}/g, data.length.toString());
+        template = this._bottomTemplate({
+            current: this._length.toString(),
+            total: data.length.toString()
+        });
+
 
         this._getMore.html(template);
     },
 
     /**
      * 뷰 전체 렌더링
-     * @param {Array} data 컨트롤러에서 받은 데이터
+     * @param {Object} data 컨트롤러에서 받은 데이터
      * @public
      */
     render: function (data) {
+        /**
+         * @typedef {Object} data
+         * @property {Array} items
+         */
+        var items = data.items;
         var me = this;
 
-        if (data.length <= me._length) {
+        if (items.length <= me._length) {
             me._noticeFinishRender();
             me._removeEvents();
         } else {
-            me._bottomRender(data);
+            me._bottomRender(items);
         }
 
         // 햇님 에니메이션을 위해 0.2초 딜레이
         setTimeout(function () {
-            me._listRender(data);
+            me._listRender(items);
             me._afterRender();
         }, 200);
     }
