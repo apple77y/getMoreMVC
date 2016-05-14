@@ -5,38 +5,20 @@
  * @returns {*}
  * @constructor
  */
-nts.controller = function (model, view) {
-    var me = this;
+nts.controller.AutoScrollController = function (model, view) {
+    this._model = model;
+    this._view = view;
+    this._dao = new nts.model.AutoScrollDao(this._model);
 
-    if (!(me instanceof nts.controller)) {
-        return new nts.controller(model, view);
-    }
-
-    me._model = model;
-    me._view = view;
-    me._dao = new nts.dao(me._model);
-
-    me._init();
-
-    return me;
+    this._bindViewEvents();
+    this._bindModelEvents();
+    this._dao.findAll();
 };
 
 /**
  * 컨트롤러 객체의 프로토타입 정의
  */
-nts.controller.prototype = {
-
-    /**
-     * 컨트롤러 최초 실행 함수
-     * ajax로 local json을 호출
-     * @private
-     */
-    _init: function () {
-        this._bindViewEvents();
-        this._bindModelEvents();
-
-        this._dao.callData();
-    },
+nts.controller.AutoScrollController.prototype = {
 
     /**
      * view element에 이벤트를 바인드
