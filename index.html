@@ -59,9 +59,9 @@
 <script src="static/vendor/underscore/underscore-min.js"></script>
 <script src="static/hunyong.song-1.0.0.js"></script>
 <script>
-    var model = new nts.model();
-    var view = new nts.view();
-    var controller = new nts.controller(model, view);
+    var model = new nts.model.AutoScrollEntity();
+    var view = new nts.view.AutoScrollView();
+    var controller = new nts.controller.AutoScrollController(model, view);
 </script>
 </body>
 </html>

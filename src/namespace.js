@@ -8,4 +8,5 @@ var nts = window.nts || {
         model: {},
         view: {},
         controller: {},
+        helper: {},
     };

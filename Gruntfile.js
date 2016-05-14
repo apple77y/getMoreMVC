@@ -44,7 +44,13 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     '<%= path.src %>namespace.js',
-                    '<%= path.src %>js/*.js'
+                    '<%= path.src %>js/model/dao/baseDao.js',
+                    '<%= path.src %>js/model/dao/autoScrollDao.js',
+                    '<%= path.src %>js/model/entity/baseEntity.js',
+                    '<%= path.src %>js/model/entity/autoScrollEntity.js',
+                    '<%= path.src %>js/controller/autoScrollController.js',
+                    '<%= path.src %>js/view/autoScrollView.js',
+                    '<%= path.src %>js/helper/observer.js'
                 ],
                 dest: 'static/<%= pkg.name %>-<%= pkg.version %>.js'
             }
