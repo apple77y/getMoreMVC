@@ -3,33 +3,23 @@
  * @returns {*}
  * @constructor
  */
-nts.dao = function (model) {
-    var me = this;
+nts.model.BaseDao = function () {
 
-    if (!(me instanceof nts.dao)) {
-        return new nts.dao();
-    }
-
-    me._model = model;
-    me._method = 'GET';
-    me._url = 'src/json/data.json';
-
-    return me;
 };
 
 /**
  * DAO 객체의 프로토타입 정의
  */
-nts.dao.prototype = {
+nts.model.BaseDao.prototype = {
 
     /**
      * ajax 통신 호출
      * @public
      */
-    callData: function () {
-        $.ajax({
-                type: this._method,
-                url: this._url,
+    request: function (url) {
+        return $.ajax({
+                type: 'GET',
+                url: url,
                 dataType: 'json',
                 async: false
             })
@@ -43,7 +33,7 @@ nts.dao.prototype = {
      * @private
      */
     _successHandler: function (data) {
-        this._model.localData = data;
+        return data;
     },
 
     /**
