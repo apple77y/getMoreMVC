@@ -1,5 +1,7 @@
 # autoEndlessScroll MVC pattern
 
+![Alt text](/class_diagram.png "Optional Title")
+
 ## 보안 이슈로 css는 없습니다.
 
 ## Getting Started
